@@ -1,0 +1,22 @@
+{
+  "name": "restwrapper",
+  "version": "0.0.1",
+  "description": "Thin wrapper to build web api objects, useful for flux / polymer applications.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/lyleg/restwrapper"
+  },
+  "keywords": [
+    "rest"
+  ],
+  "author": "Lyle Garza",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lyleg/restwrapper/issues"
+  },
+  "homepage": "https://github.com/lyleg/restwrapper"
+}
