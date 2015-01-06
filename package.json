@@ -21,6 +21,7 @@
   "homepage": "https://github.com/lyleg/restwrapper",
   "dependencies": {
     "es6-promise": "^2.0.1",
-    "superagent": "^0.21.0"
+    "superagent": "^0.21.0",
+    "uri-templates": "^0.1.5"
   }
 }
