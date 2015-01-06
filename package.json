@@ -1,6 +1,6 @@
 {
   "name": "restwrapper",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Thin wrapper to build web api objects, useful for flux / polymer applications.",
   "main": "index.js",
   "scripts": {
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/lyleg/restwrapper",
   "dependencies": {
     "es6-promise": "^2.0.1",
+    "object-assign": "^2.0.0",
     "superagent": "^0.21.0",
     "uri-templates": "^0.1.5"
   }
