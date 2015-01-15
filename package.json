@@ -1,6 +1,6 @@
 {
   "name": "restwrapper",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Thin wrapper to build web api objects, useful for flux / polymer applications.",
   "main": "index.js",
   "scripts": {
