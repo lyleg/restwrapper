@@ -14,20 +14,20 @@
  * Message.get({messageID:123}).then(function(message){
  *  alert(message.text);
  * });
- *
+ *````javascript
  * var newMessage = {text:'Hey, I think you're cool.'}
  * Message.post(newMessage).then(function(message){
  *  alert('saved' + message.id).
  * });
- *
+ *````
  * Feel free to tack on your own methods
- *
+ *````javascript
  * Message.customPost = function(){
  *  var customParams = {messageID:'123'},
  *       newPayload = {text:'Hey',otherAttr:'beep'};
  *   return this.post(customParams,newPayload)
  * };
- * 
+ * ````
  */
 var request = require("superagent"),
     uriTemplates = require("uri-templates"),
