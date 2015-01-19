@@ -1,10 +1,11 @@
 {
   "name": "restwrapper",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Thin wrapper to build web api objects, useful for flux / polymer applications.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "6to5 src/restwrapper.js -o dist/restwrapper.js",
+    "test": "npm run build && node test/test.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +27,8 @@
     "uri-templates": "^0.1.5"
   },
   "devDependencies": {
+    "6to5ify": "^3.1.2",
+    "sinon": "^1.12.2",
     "tape": "^3.0.3"
   }
 }
