@@ -7,10 +7,12 @@ I wrote this to be a simple way to communicate to REST Servers using the same sy
 It's a nice starting point for the mysterious WEB API often mentioned in FLUX tutorials.
 
 Examples
+````javascript
 var Message = new RestWrapper('http://example.com/messages/{messageID}');
 Message.get({messageID:123}).then(function(message){
  alert(message.text);
 });
+````
 ````javascript
 var newMessage = {text:"Hey, I think you're cool."}
 Message.post(newMessage).then(function(message){
@@ -28,5 +30,4 @@ Message.save = function(params,payload){
 };
 ````
 
-<!-- End dist/restwrapper.js -->
 
