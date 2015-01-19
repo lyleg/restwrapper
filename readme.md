@@ -28,4 +28,5 @@ Message.save = function(params,payload){
 };
 ````
 
+<!-- End dist/restwrapper.js -->
 
