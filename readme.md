@@ -1,9 +1,3 @@
-
-
-<!-- Start dist/restwrapper.js -->
-
-## request
-
 # RestWrapper
 
 #Simple REST Calls for NODE/Browserify 
@@ -18,19 +12,20 @@ Message.get({messageID:123}).then(function(message){
  alert(message.text);
 });
 ````javascript
-var newMessage = {text:'Hey, I think you're cool.'}
+var newMessage = {text:"Hey, I think you're cool."}
 Message.post(newMessage).then(function(message){
  alert('saved' + message.id).
 });
 ````
 Feel free to tack on your own methods
 ````javascript
-Message.customPost = function(){
- var customParams = {messageID:'123'},
-      newPayload = {text:'Hey',otherAttr:'beep'};
-  return this.post(customParams,newPayload)
+Message.save = function(params,payload){
+  if(payload.id){
+     return this.put(params,payload);
+  }else{
+     return this.post(params,payload);
+  }
 };
 ````
 
-<!-- End dist/restwrapper.js -->
 
