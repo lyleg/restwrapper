@@ -45,7 +45,6 @@
 var request = require('superagent'),
     uriTemplates = require('uri-templates'),
     ObjectAssign = require('object-assign');
-    require('es6-promise').polyfill();
 
 module.exports = function(uri, paramDefaults={}, defaultHeaders={}){
     'use strict';
@@ -64,7 +63,7 @@ module.exports = function(uri, paramDefaults={}, defaultHeaders={}){
             params = params || {};
             payload = payload || {};
             uriTemplate.varNames.forEach(function(varName){
-                if(!params[varName] && paramDefaults[varName]){// how is params undefined?
+                if(!params[varName] && paramDefaults[varName]){
                     var arr = paramDefaults[varName].split('@'),
                         value;
                     if( arr.length === 2 ){
@@ -97,8 +96,7 @@ module.exports = function(uri, paramDefaults={}, defaultHeaders={}){
                         if(err){
                             reject();
                         }
-                        var data=res.body.payload;
-                        resolve(data);
+                        resolve(res);
                     });
             });
         },
@@ -117,15 +115,15 @@ module.exports = function(uri, paramDefaults={}, defaultHeaders={}){
             return this.request('get',this.buildURI(params));
         },
         post(a1,a2){
-            var {payload, params} = this.argumentBuilder(a1,a2);
+            var {payload, params} = this.argumentBuilder.apply(arguments);
             return this.request('post',this.buildURI(params,payload),payload);
         },
         update(a1, a2){
-            var {payload, params} = this.argumentBuilder(a1,a2);
+            var {payload, params} = this.argumentBuilder.apply(arguments);
                 return this.request('put',this.buildURI(params,payload), payload);
         },
         del(a1, a2){
-            var {payload, params} = this.argumentBuilder(a1,a2);
+            var {payload, params} = this.argumentBuilder.apply(arguments);
             return this.request('del',this.buildURI(params, payload), payload);
         }
    };

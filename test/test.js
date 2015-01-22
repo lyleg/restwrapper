@@ -1,6 +1,7 @@
 var Rest = require('../index'),
     Test = require('tape'),
     Sinon = require('sinon');
+    require('es6-promise').polyfill();
 
 
 var testRest = new Rest('http://example.com/{exampleID}',{exampleID:'@id'});

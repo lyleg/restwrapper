@@ -7,19 +7,30 @@
  * @version 0.0.6
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
+ *
  * It's a nice starting point for the mysterious WEB API often mentioned in FLUX tutorials.
+ * RestWrapper(uri, [paramDefaults], [headers]);
+ *
+ * URI can be parameterized according to http://tools.ietf.org/html/rfc6570
+ * paramDefaults - Populate the uri template variables from payload object by prefixing an '@' in the attributes value
+ * headers - pass any default headers as an object, ex {'secretToken':123}
  *
  * Examples
  *````javascript
- * var Message = new RestWrapper('http://example.com/messages/{messageID}');
+ * var Message = new RestWrapper('http://example.com/messages/{messageID}', {messageID:'@id'});
  * Message.get({messageID:123}).then(function(message){
  *  alert(message.text);
  * });
  *````
  *````javascript
- * var newMessage = {text:"Hey, I think you're cool."}
+ * var newMessage = {text:"Hey, I think you're cool."};
  * Message.post(newMessage).then(function(message){
  *  alert('saved' + message.id).
+ * });
+ *
+ * var modifiedMessage = {id:123, text:"Heeeeeey"};//messageID is set from the id in the message object
+ * Message.put(newMessage).then(function(message){
+ *  alert('updated');
  * });
  *````
  * Feel free to tack on your own methods
@@ -36,12 +47,10 @@
 var request = require("superagent"),
     uriTemplates = require("uri-templates"),
     ObjectAssign = require("object-assign");
-require("es6-promise").polyfill();
 
 module.exports = function (uri) {
   var paramDefaults = arguments[1] === undefined ? {} : arguments[1];
   var defaultHeaders = arguments[2] === undefined ? {} : arguments[2];
-  //URI can be parameterized according to http://tools.ietf.org/html/rfc6570
   "use strict";
   var uriTemplate = uriTemplates(uri);
 
@@ -98,8 +107,7 @@ module.exports = function (uri) {
           if (err) {
             reject();
           }
-          var data = res.body.payload;
-          resolve(data);
+          resolve(res);
         });
       });
     }),
@@ -118,24 +126,24 @@ module.exports = function (uri) {
       return this.request("get", this.buildURI(params));
     },
     post: function post(a1, a2) {
-      var _argumentBuilder = this.argumentBuilder(a1, a2);
+      var _argumentBuilder$apply = this.argumentBuilder.apply(arguments);
 
-      var payload = _argumentBuilder.payload;
-      var params = _argumentBuilder.params;
+      var payload = _argumentBuilder$apply.payload;
+      var params = _argumentBuilder$apply.params;
       return this.request("post", this.buildURI(params, payload), payload);
     },
     update: function update(a1, a2) {
-      var _argumentBuilder2 = this.argumentBuilder(a1, a2);
+      var _argumentBuilder$apply2 = this.argumentBuilder.apply(arguments);
 
-      var payload = _argumentBuilder2.payload;
-      var params = _argumentBuilder2.params;
+      var payload = _argumentBuilder$apply2.payload;
+      var params = _argumentBuilder$apply2.params;
       return this.request("put", this.buildURI(params, payload), payload);
     },
     del: function del(a1, a2) {
-      var _argumentBuilder3 = this.argumentBuilder(a1, a2);
+      var _argumentBuilder$apply3 = this.argumentBuilder.apply(arguments);
 
-      var payload = _argumentBuilder3.payload;
-      var params = _argumentBuilder3.params;
+      var payload = _argumentBuilder$apply3.payload;
+      var params = _argumentBuilder$apply3.params;
       return this.request("del", this.buildURI(params, payload), payload);
     }
   };
