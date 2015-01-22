@@ -46,11 +46,12 @@ var request = require('superagent'),
     uriTemplates = require('uri-templates'),
     ObjectAssign = require('object-assign');
 
-module.exports = function(uri, paramDefaults={}, defaultHeaders={}){
+module.exports = function(uri, paramDefaults={}){
     'use strict';
     var uriTemplate = uriTemplates(uri);
 
     return {
+        headers:{},
     /*! go through each possible param in template
         if a passed in value exists
             use it
@@ -79,9 +80,6 @@ module.exports = function(uri, paramDefaults={}, defaultHeaders={}){
 
             return params;
         },
-        setDefaultHeaders(defaultHeaders){
-            defaultHeaders = defaultHeaders;
-        },
         buildURI(params,payload){
             params = this.paramDefaulter(params,payload);
             return uriTemplate.fillFromObject(params);
@@ -89,9 +87,10 @@ module.exports = function(uri, paramDefaults={}, defaultHeaders={}){
         request(method,uri,payload){
             var self = this;
             return new Promise(function(resolve,reject){
+                debugger;
                 request[method](uri)
                     .send(payload)
-                    .set(defaultHeaders)
+                    .set(self.headers)
                     .end(function(err,res){
                         if(err){
                             reject();
@@ -115,15 +114,15 @@ module.exports = function(uri, paramDefaults={}, defaultHeaders={}){
             return this.request('get',this.buildURI(params));
         },
         post(a1,a2){
-            var {payload, params} = this.argumentBuilder.apply(arguments);
+            var {payload, params} = this.argumentBuilder.apply(this,arguments);
             return this.request('post',this.buildURI(params,payload),payload);
         },
         update(a1, a2){
-            var {payload, params} = this.argumentBuilder.apply(arguments);
+            var {payload, params} = this.argumentBuilder.apply(this,arguments);
                 return this.request('put',this.buildURI(params,payload), payload);
         },
         del(a1, a2){
-            var {payload, params} = this.argumentBuilder.apply(arguments);
+            var {payload, params} = this.argumentBuilder.apply(this,arguments);
             return this.request('del',this.buildURI(params, payload), payload);
         }
    };

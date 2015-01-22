@@ -50,11 +50,11 @@ var request = require("superagent"),
 
 module.exports = function (uri) {
   var paramDefaults = arguments[1] === undefined ? {} : arguments[1];
-  var defaultHeaders = arguments[2] === undefined ? {} : arguments[2];
   "use strict";
   var uriTemplate = uriTemplates(uri);
 
   return {
+    headers: {},
     /*! go through each possible param in template
         if a passed in value exists
             use it
@@ -68,7 +68,6 @@ module.exports = function (uri) {
       payload = payload || {};
       uriTemplate.varNames.forEach(function (varName) {
         if (!params[varName] && paramDefaults[varName]) {
-          // how is params undefined?
           var arr = paramDefaults[varName].split("@"), value;
           if (arr.length === 2) {
             if (typeof payload !== "undefined" && typeof payload[arr[1]] !== "undefined") {
@@ -82,9 +81,6 @@ module.exports = function (uri) {
       });
 
       return params;
-    },
-    setDefaultHeaders: function setDefaultHeaders(defaultHeaders) {
-      defaultHeaders = defaultHeaders;
     },
     buildURI: function buildURI(params, payload) {
       params = this.paramDefaulter(params, payload);
@@ -103,7 +99,8 @@ module.exports = function (uri) {
     })(function (method, uri, payload) {
       var self = this;
       return new Promise(function (resolve, reject) {
-        request[method](uri).send(payload).set(defaultHeaders).end(function (err, res) {
+        debugger;
+        request[method](uri).send(payload).set(self.headers).end(function (err, res) {
           if (err) {
             reject();
           }
@@ -126,21 +123,21 @@ module.exports = function (uri) {
       return this.request("get", this.buildURI(params));
     },
     post: function post(a1, a2) {
-      var _argumentBuilder$apply = this.argumentBuilder.apply(arguments);
+      var _argumentBuilder$apply = this.argumentBuilder.apply(this, arguments);
 
       var payload = _argumentBuilder$apply.payload;
       var params = _argumentBuilder$apply.params;
       return this.request("post", this.buildURI(params, payload), payload);
     },
     update: function update(a1, a2) {
-      var _argumentBuilder$apply2 = this.argumentBuilder.apply(arguments);
+      var _argumentBuilder$apply2 = this.argumentBuilder.apply(this, arguments);
 
       var payload = _argumentBuilder$apply2.payload;
       var params = _argumentBuilder$apply2.params;
       return this.request("put", this.buildURI(params, payload), payload);
     },
     del: function del(a1, a2) {
-      var _argumentBuilder$apply3 = this.argumentBuilder.apply(arguments);
+      var _argumentBuilder$apply3 = this.argumentBuilder.apply(this, arguments);
 
       var payload = _argumentBuilder$apply3.payload;
       var params = _argumentBuilder$apply3.params;
