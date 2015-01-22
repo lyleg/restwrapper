@@ -2,7 +2,7 @@
  * # RestWrapper
  * 
  * #Simple REST Calls for NODE/Browserify 
- * @version 0.0.6
+ * @version 0.0.7
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
  *
