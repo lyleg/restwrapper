@@ -1,7 +1,7 @@
 {
   "name": "restwrapper",
-  "version": "0.0.7",
-  "description": "Thin wrapper to build web api objects, useful for flux / polymer applications.",
+  "version": "0.0.8",
+  "description": "A small helper for building web API's. Useful for FLUX stores or anywhere a small isomorphic rest client could be of value",
   "main": "index.js",
   "scripts": {
     "build": "6to5 src/restwrapper.js -o dist/restwrapper.js",

@@ -2,7 +2,7 @@
  * # RestWrapper
  * 
  * #Simple REST Calls for NODE/Browserify 
- * @version 0.0.7
+ * @version 0.0.8
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
  *
@@ -60,9 +60,7 @@ module.exports = function(uri, paramDefaults={}){
             if default
               use the attr of payload or hardcoded number
     */
-        paramDefaulter(params,payload){
-            params = params || {};
-            payload = payload || {};
+        paramDefaulter(params={},payload={}){
             uriTemplate.varNames.forEach(function(varName){
                 if(!params[varName] && paramDefaults[varName]){
                     var arr = paramDefaults[varName].split('@'),
@@ -87,7 +85,6 @@ module.exports = function(uri, paramDefaults={}){
         request(method,uri,payload){
             var self = this;
             return new Promise(function(resolve,reject){
-                debugger;
                 request[method](uri)
                     .send(payload)
                     .set(self.headers)
@@ -114,15 +111,15 @@ module.exports = function(uri, paramDefaults={}){
             return this.request('get',this.buildURI(params));
         },
         post(a1,a2){
-            var {payload, params} = this.argumentBuilder.apply(this,arguments);
+            var {payload, params} = this.argumentBuilder(...arguments);
             return this.request('post',this.buildURI(params,payload),payload);
         },
         update(a1, a2){
-            var {payload, params} = this.argumentBuilder.apply(this,arguments);
+            var {payload, params} = this.argumentBuilder(...arguments);
                 return this.request('put',this.buildURI(params,payload), payload);
         },
         del(a1, a2){
-            var {payload, params} = this.argumentBuilder.apply(this,arguments);
+            var {payload, params} = this.argumentBuilder(...arguments);
             return this.request('del',this.buildURI(params, payload), payload);
         }
    };

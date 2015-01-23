@@ -4,7 +4,7 @@
  * # RestWrapper
  * 
  * #Simple REST Calls for NODE/Browserify 
- * @version 0.0.6
+ * @version 0.0.8
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
  *
@@ -63,9 +63,9 @@ module.exports = function (uri) {
             if default
               use the attr of payload or hardcoded number
     */
-    paramDefaulter: function paramDefaulter(params, payload) {
-      params = params || {};
-      payload = payload || {};
+    paramDefaulter: function paramDefaulter() {
+      var params = arguments[0] === undefined ? {} : arguments[0];
+      var payload = arguments[1] === undefined ? {} : arguments[1];
       uriTemplate.varNames.forEach(function (varName) {
         if (!params[varName] && paramDefaults[varName]) {
           var arr = paramDefaults[varName].split("@"), value;
@@ -99,7 +99,6 @@ module.exports = function (uri) {
     })(function (method, uri, payload) {
       var self = this;
       return new Promise(function (resolve, reject) {
-        debugger;
         request[method](uri).send(payload).set(self.headers).end(function (err, res) {
           if (err) {
             reject();
@@ -123,21 +122,24 @@ module.exports = function (uri) {
       return this.request("get", this.buildURI(params));
     },
     post: function post(a1, a2) {
-      var _argumentBuilder$apply = this.argumentBuilder.apply(this, arguments);
+      var _ref;
+      var _argumentBuilder$apply = (_ref = this).argumentBuilder.apply(_ref, arguments);
 
       var payload = _argumentBuilder$apply.payload;
       var params = _argumentBuilder$apply.params;
       return this.request("post", this.buildURI(params, payload), payload);
     },
     update: function update(a1, a2) {
-      var _argumentBuilder$apply2 = this.argumentBuilder.apply(this, arguments);
+      var _ref2;
+      var _argumentBuilder$apply2 = (_ref2 = this).argumentBuilder.apply(_ref2, arguments);
 
       var payload = _argumentBuilder$apply2.payload;
       var params = _argumentBuilder$apply2.params;
       return this.request("put", this.buildURI(params, payload), payload);
     },
     del: function del(a1, a2) {
-      var _argumentBuilder$apply3 = this.argumentBuilder.apply(this, arguments);
+      var _ref3;
+      var _argumentBuilder$apply3 = (_ref3 = this).argumentBuilder.apply(_ref3, arguments);
 
       var payload = _argumentBuilder$apply3.payload;
       var params = _argumentBuilder$apply3.params;

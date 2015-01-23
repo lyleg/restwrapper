@@ -28,5 +28,6 @@ Test('ArgumentBuilder',function(t){
     var args = testRest.argumentBuilder({message:'hi'});
     t.deepEqual(args.params,{});
     t.deepEqual(args.payload,{message:'hi'});
-
 });
+
+
