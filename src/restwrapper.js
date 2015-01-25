@@ -63,22 +63,26 @@ module.exports = function(uri, paramDefaults={}){
         paramDefaulter(params={},payload={}){
             uriTemplate.varNames.forEach(function(varName){
                 if(!params[varName] && paramDefaults[varName]){
-                    var arr = paramDefaults[varName].split('@'),
-                        value;
-                    if( arr.length === 2 ){
-                        if(typeof payload !== 'undefined' && typeof payload[arr[1]] !== 'undefined'){
-                            value = payload[arr[1]];
-                            params[varName] = value;
+                    if(typeof paramDefaults[varName] === "string"){
+                        var arr = paramDefaults[varName].split('@'),
+                            value;
+                        if( arr.length === 2 ){
+                            if(typeof payload !== 'undefined' && typeof payload[arr[1]] !== 'undefined'){
+                                value = payload[arr[1]];
+                                params[varName] = value;
+                            }
+                        }else{
+                            params[varName] = arr;
                         }
                     }else{
-                        params[varName] = arr;
+                            params[varName] = pramDefaults[varName];
                     }
                 }
             });
 
             return params;
         },
-        buildURI(params,payload){
+        buildURI(params={},payload={}){
             params = this.paramDefaulter(params,payload);
             return uriTemplate.fillFromObject(params);
         },
