@@ -1,4 +1,4 @@
-# RestWrapper
+#H1 RestWrapper
 
 #Simple REST Calls for NODE/Browserify 
 
@@ -9,6 +9,7 @@ It's a nice starting point for the mysterious WEB API often mentioned in FLUX tu
 RestWrapper(uri, [paramDefaults], [headers]);
 
 URI can be parameterized according to http://tools.ietf.org/html/rfc6570
+
 paramDefaults - Populate the uri template variables from payload object by prefixing an '@' in the attributes value
 headers - pass any default headers as an object, ex {'secretToken':123}
 
