@@ -2,7 +2,7 @@
  * # RestWrapper
  * 
  * #Simple REST Calls for NODE/Browserify 
- * @version 0.0.8
+ * @version 0.0.9
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
  *
@@ -93,8 +93,8 @@ module.exports = function(uri, paramDefaults={}){
                     .send(payload)
                     .set(self.headers)
                     .end(function(err,res){
-                        if(err){
-                            reject();
+                        if(res.error){
+                            reject(res.error);
                         }
                         resolve(res);
                     });
