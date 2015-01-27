@@ -1,4 +1,4 @@
-#H1 RestWrapper
+#RestWrapper
 
 #Simple REST Calls for NODE/Browserify 
 
