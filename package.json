@@ -1,6 +1,6 @@
 {
   "name": "restwrapper",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "description": "A small helper for building web API's. Useful for FLUX stores or anywhere a small isomorphic rest client could be of value",
   "main": "index.js",
   "scripts": {
