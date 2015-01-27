@@ -1,8 +1,8 @@
 /**
- * # RestWrapper
+ * #RestWrapper
  * 
  * #Simple REST Calls for NODE/Browserify 
- * @version 0.0.9
+ * @version 0.0.10
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
  *
@@ -10,6 +10,7 @@
  * RestWrapper(uri, [paramDefaults], [headers]);
  *
  * URI can be parameterized according to http://tools.ietf.org/html/rfc6570
+ *
  * paramDefaults - Populate the uri template variables from payload object by prefixing an '@' in the attributes value
  * headers - pass any default headers as an object, ex {'secretToken':123}
  *
@@ -75,7 +76,7 @@ module.exports = function(uri, paramDefaults={}){
                             params[varName] = arr;
                         }
                     }else{
-                            params[varName] = pramDefaults[varName];
+                            params[varName] = paramDefaults[varName];
                     }
                 }
             });
@@ -87,11 +88,10 @@ module.exports = function(uri, paramDefaults={}){
             return uriTemplate.fillFromObject(params);
         },
         request(method,uri,payload){
-            var self = this;
-            return new Promise(function(resolve,reject){
+            return new Promise((resolve,reject)=>{
                 request[method](uri)
                     .send(payload)
-                    .set(self.headers)
+                    .set(this.headers)
                     .end(function(err,res){
                         if(res.error){
                             reject(res.error);
