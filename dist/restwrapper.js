@@ -128,7 +128,7 @@ module.exports = function (uri) {
     get: function get(params) {
       return this.request("get", this.buildURI(params));
     },
-    post: function post(a1, a2) {
+    post: function post() {
       var _ref;
       var _argumentBuilder$apply = (_ref = this).argumentBuilder.apply(_ref, arguments);
 
@@ -136,7 +136,7 @@ module.exports = function (uri) {
       var params = _argumentBuilder$apply.params;
       return this.request("post", this.buildURI(params, payload), payload);
     },
-    update: function update(a1, a2) {
+    update: function update() {
       var _ref2;
       var _argumentBuilder$apply2 = (_ref2 = this).argumentBuilder.apply(_ref2, arguments);
 
@@ -144,7 +144,7 @@ module.exports = function (uri) {
       var params = _argumentBuilder$apply2.params;
       return this.request("put", this.buildURI(params, payload), payload);
     },
-    del: function del(a1, a2) {
+    del: function del() {
       var _ref3;
       var _argumentBuilder$apply3 = (_ref3 = this).argumentBuilder.apply(_ref3, arguments);
 

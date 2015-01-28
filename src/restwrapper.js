@@ -114,15 +114,15 @@ module.exports = function(uri, paramDefaults={}){
         get(params){
             return this.request('get',this.buildURI(params));
         },
-        post(a1,a2){
+        post(){
             var {payload, params} = this.argumentBuilder(...arguments);
             return this.request('post',this.buildURI(params,payload),payload);
         },
-        update(a1, a2){
+        update(){
             var {payload, params} = this.argumentBuilder(...arguments);
                 return this.request('put',this.buildURI(params,payload), payload);
         },
-        del(a1, a2){
+        del(){
             var {payload, params} = this.argumentBuilder(...arguments);
             return this.request('del',this.buildURI(params, payload), payload);
         }
