@@ -2,7 +2,7 @@
  * #RestWrapper
  * 
  * #Simple REST Calls for NODE/Browserify 
- * @version 0.0.10
+ * @version 0.0.11
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
  *
@@ -44,14 +44,15 @@
  * ````
  */
 var request = require('superagent'),
-    uriTemplates = require('uri-templates'),
-    ObjectAssign = require('object-assign');
+    uriTemplates = require('uri-templates');
 
 module.exports = function(uri, paramDefaults={}){
     'use strict';
     var uriTemplate = uriTemplates(uri);
-
     return {
+        beforeSend(){
+            return true;
+        },
         headers:{},
     /*! go through each possible param in template
         if a passed in value exists
@@ -73,7 +74,7 @@ module.exports = function(uri, paramDefaults={}){
                                 params[varName] = value;
                             }
                         }else{
-                            params[varName] = arr;
+                            params[varName] = arr[0];
                         }
                     }else{
                             params[varName] = paramDefaults[varName];
@@ -89,15 +90,17 @@ module.exports = function(uri, paramDefaults={}){
         },
         request(method,uri,payload){
             return new Promise((resolve,reject)=>{
-                request[method](uri)
-                    .send(payload)
-                    .set(this.headers)
-                    .end(function(err,res){
-                        if(res.error){
-                            reject(res.error);
-                        }
-                        resolve(res);
-                    });
+                if(this.beforeSend(method,uri,payload) !== false){
+                    request[method](uri)
+                        .send(payload)
+                        .set(this.headers)
+                        .end(function(err,res){
+                            if(res.error){
+                                reject(res.error);
+                            }
+                            resolve(res);
+                        });
+                 }
             });
         },
         argumentBuilder(a1,a2){

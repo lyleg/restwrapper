@@ -46,15 +46,16 @@
  * ````
  */
 var request = require("superagent"),
-    uriTemplates = require("uri-templates"),
-    ObjectAssign = require("object-assign");
+    uriTemplates = require("uri-templates");
 
 module.exports = function (uri) {
   var paramDefaults = arguments[1] === undefined ? {} : arguments[1];
   "use strict";
   var uriTemplate = uriTemplates(uri);
-
   return {
+    beforeSend: function beforeSend() {
+      return true;
+    },
     headers: {},
     /*! go through each possible param in template
         if a passed in value exists
@@ -77,7 +78,7 @@ module.exports = function (uri) {
                 params[varName] = value;
               }
             } else {
-              params[varName] = arr;
+              params[varName] = arr[0];
             }
           } else {
             params[varName] = paramDefaults[varName];
@@ -106,12 +107,14 @@ module.exports = function (uri) {
     })(function (method, uri, payload) {
       var _this = this;
       return new Promise(function (resolve, reject) {
-        request[method](uri).send(payload).set(_this.headers).end(function (err, res) {
-          if (res.error) {
-            reject(res.error);
-          }
-          resolve(res);
-        });
+        if (_this.beforeSend(method, uri, payload) !== false) {
+          request[method](uri).send(payload).set(_this.headers).end(function (err, res) {
+            if (res.error) {
+              reject(res.error);
+            }
+            resolve(res);
+          });
+        }
       });
     }),
     argumentBuilder: function argumentBuilder(a1, a2) {

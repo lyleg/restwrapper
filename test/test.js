@@ -9,15 +9,15 @@ var withHardCodedDefaults = new Rest('http://example.com/{exampleID}/message/{st
 var withoutDefaults = new Rest('http://example.com/');
     
 Test('buildURI',function(t){
-    t.plan(2);
+    t.plan(4);
     t.equal(withPayloadDefaults.buildURI({'exampleID':1}),'http://example.com/1');
     t.equal(withPayloadDefaults.buildURI({},{id:2,foo:3,bar:4}),'http://example.com/2');
     t.equal(withHardCodedDefaults.buildURI(),'http://example.com/5/message/hey');
-    t.equal(withoutDefaults.buildURI(),'http://example.com');
+    t.equal(withoutDefaults.buildURI(),'http://example.com/');
 });
 
 Test('ParamDefaulter',function(t){
-    t.plan(3);
+    t.plan(5);
     t.deepEqual(withPayloadDefaults.paramDefaulter({exampleID:1},{}),{exampleID:1});
     t.deepEqual(withPayloadDefaults.paramDefaulter({},{id:1}),{exampleID:1});
     t.deepEqual(withPayloadDefaults.paramDefaulter({exampleID:5},{id:1}),{exampleID:5});
