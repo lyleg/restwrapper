@@ -1,8 +1,8 @@
 /**
  * #RestWrapper
- * 
- * #Simple REST Calls for NODE/Browserify 
- * @version 0.0.11
+ *
+ * #Simple REST Calls for NODE/Browserify
+ * @version 0.0.12
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
  *
@@ -43,17 +43,15 @@
  * };
  * ````
  */
-var request = require('superagent'),
+const request = require('superagent'),
     uriTemplates = require('uri-templates');
 
-module.exports = function(uri, paramDefaults={}){
+module.exports = function(uri, paramDefaults={}, beforeSend){
     'use strict';
-    var uriTemplate = uriTemplates(uri);
+    const uriTemplate = uriTemplates(uri);
     return {
-        beforeSend(){
-            return true;
-        },
-        headers:{},
+        beforeSend: beforeSend || function(){return true; },
+        headers: {},
     /*! go through each possible param in template
         if a passed in value exists
             use it
@@ -62,12 +60,12 @@ module.exports = function(uri, paramDefaults={}){
             if default
               use the attr of payload or hardcoded number
     */
-        paramDefaulter(params={},payload={}){
+        paramDefaulter(params={}, payload={}){
             uriTemplate.varNames.forEach(function(varName){
                 if(!params[varName] && paramDefaults[varName]){
-                    if(typeof paramDefaults[varName] === "string"){
-                        var arr = paramDefaults[varName].split('@'),
-                            value;
+                    if(typeof paramDefaults[varName] === 'string'){
+                        const arr = paramDefaults[varName].split('@');
+                        let value;
                         if( arr.length === 2 ){
                             if(typeof payload !== 'undefined' && typeof payload[arr[1]] !== 'undefined'){
                                 value = payload[arr[1]];
@@ -84,17 +82,17 @@ module.exports = function(uri, paramDefaults={}){
 
             return params;
         },
-        buildURI(params={},payload={}){
-            params = this.paramDefaulter(params,payload);
+        buildURI(params={}, payload={}){
+            params = this.paramDefaulter(params, payload);
             return uriTemplate.fillFromObject(params);
         },
-        request(method,uri,payload){
-            return new Promise((resolve,reject)=>{
-                if(this.beforeSend(method,uri,payload) !== false){
+        request(method, requestUri, payload){
+            return new Promise((resolve, reject)=>{
+                if(this.beforeSend(method, requestUri, payload) !== false){
                     request[method](uri)
                         .send(payload)
                         .set(this.headers)
-                        .end(function(err,res){
+                        .end(function(err, res){
                             if(res.error){
                                 reject(res.error);
                             }
@@ -103,8 +101,8 @@ module.exports = function(uri, paramDefaults={}){
                  }
             });
         },
-        argumentBuilder(a1,a2){
-            var args = {};
+        argumentBuilder(a1, a2){
+            let args = {};
                 if(arguments.length === 2){
                     args.params = a1;
                     args.payload = a2;
@@ -115,19 +113,19 @@ module.exports = function(uri, paramDefaults={}){
             return args;
         },
         get(params){
-            return this.request('get',this.buildURI(params));
+            return this.request('get', this.buildURI(params));
         },
         post(){
-            var {payload, params} = this.argumentBuilder(...arguments);
-            return this.request('post',this.buildURI(params,payload),payload);
+            const {payload, params} = this.argumentBuilder(...arguments);
+            return this.request('post', this.buildURI(params, payload), payload);
         },
         update(){
-            var {payload, params} = this.argumentBuilder(...arguments);
-                return this.request('put',this.buildURI(params,payload), payload);
+            const {payload, params} = this.argumentBuilder(...arguments);
+                return this.request('put', this.buildURI(params, payload), payload);
         },
         del(){
-            var {payload, params} = this.argumentBuilder(...arguments);
-            return this.request('del',this.buildURI(params, payload), payload);
+            const {payload, params} = this.argumentBuilder(...arguments);
+            return this.request('del', this.buildURI(params, payload), payload);
         }
    };
 };

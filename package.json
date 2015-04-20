@@ -1,11 +1,11 @@
 {
   "name": "restwrapper",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "A small helper for building web API's. Useful for FLUX stores or anywhere a small isomorphic rest client could be of value",
   "main": "index.js",
   "scripts": {
-    "build": "6to5 src/restwrapper.js -o dist/restwrapper.js",
-    "test": "npm build && browserify -t coverify -t 6to5ify test/test.js| node | coverify"
+    "build": "babel src/restwrapper.js -o dist/restwrapper.js",
+    "test": "npm run build && browserify -t babelify test/test.js| node"
   },
   "repository": {
     "type": "git",
@@ -21,14 +21,14 @@
   },
   "homepage": "https://github.com/lyleg/restwrapper",
   "dependencies": {
-    "superagent": "^0.21.0",
-    "uri-templates": "^0.1.5"
+    "superagent": "^1.2.0",
+    "uri-templates": "^0.1.7"
   },
   "devDependencies": {
-    "6to5ify": "^3.1.2",
-    "coverify": "^1.0.7",
+    "babelify": "^6.0.2",
+    "coverify": "^1.1.0",
     "es6-promise": "^2.0.1",
-    "sinon": "^1.12.2",
-    "tape": "^3.0.3"
+    "sinon": "^1.14.1",
+    "tape": "^4.0.0"
   }
 }

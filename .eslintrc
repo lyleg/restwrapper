@@ -1,0 +1,16 @@
+{
+    "env": {
+        "es6": true
+    },
+    "globals": {
+        "require": true,
+        "module": true
+    },
+    "rules": {
+        "new-cap": false,
+        "quotes": [1,"single"],
+        "semi": 2,
+        "strict": 0,
+        "no-var": 1,
+    }
+}   
