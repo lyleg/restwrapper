@@ -112,7 +112,7 @@ module.exports = function (uri, _x4, beforeSend) {
 
             return new Promise(function (resolve, reject) {
                 if (_this.beforeSend(method, requestUri, payload) !== false) {
-                    request[method](uri).send(payload).set(_this.headers).end(function (err, res) {
+                    request[method](requestUri).send(payload).set(_this.headers).end(function (err, res) {
                         if (res.error) {
                             reject(res.error);
                         }

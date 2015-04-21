@@ -89,7 +89,7 @@ module.exports = function(uri, paramDefaults={}, beforeSend){
         request(method, requestUri, payload){
             return new Promise((resolve, reject)=>{
                 if(this.beforeSend(method, requestUri, payload) !== false){
-                    request[method](uri)
+                    request[method](requestUri)
                         .send(payload)
                         .set(this.headers)
                         .end(function(err, res){
