@@ -2,7 +2,7 @@
 
 #Simple REST Calls for NODE/Browserify
 
-Version: 0.0.13 
+Version: 0.0.14 
 I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
 
 It's a nice starting point for the mysterious WEB API often mentioned in FLUX tutorials.
@@ -41,3 +41,5 @@ Message.save = function(params,payload){
   }
 };
 ````
+
+

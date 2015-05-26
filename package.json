@@ -1,6 +1,6 @@
 {
   "name": "restwrapper",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "A small helper for building web API's. Useful for FLUX stores or anywhere a small isomorphic rest client could be of value",
   "main": "index.js",
   "scripts": {
@@ -9,10 +9,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "github.com/lyleg/restwrapper"
+    "url": "http://github.com/lyleg/restwrapper"
   },
   "keywords": [
-    "rest"
+    "rest, ajax, webapi, isomorphic"
   ],
   "author": "Lyle Garza",
   "license": "MIT",

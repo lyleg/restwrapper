@@ -2,7 +2,7 @@
  * #RestWrapper
  *
  * #Simple REST Calls for NODE/Browserify
- * @version 0.0.13
+ * @version 0.0.14
  *
  * I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
  *
@@ -126,6 +126,10 @@ module.exports = function(uri, paramDefaults={}, beforeSend){
         del(){
             const {payload, params} = this.argumentBuilder(...arguments);
             return this.request('del', this.buildURI(params, payload), payload);
+        },
+        patch(){
+            const {payload, params} = this.argumentBuilder(...arguments);
+            return this.request('patch', this.buildURI(params, payload), payload);
         }
    };
 };
