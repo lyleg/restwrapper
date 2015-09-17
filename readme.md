@@ -6,9 +6,10 @@ Version: 0.0.14
 I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
 
 It's a nice starting point for the mysterious WEB API often mentioned in FLUX tutorials.
-RestWrapper(uri, [paramDefaults], [headers]);
 
 URI can be parameterized according to http://tools.ietf.org/html/rfc6570
+
+RestWrapper(uri, [paramDefaults], [headers]);
 
 paramDefaults - Populate the uri template variables from payload object by prefixing an '@' in the attributes value
 headers - pass any default headers as an object, ex {'secretToken':123}
