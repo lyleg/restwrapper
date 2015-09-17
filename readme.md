@@ -16,9 +16,16 @@ headers - pass any default headers as an object, ex {'secretToken':123}
 Examples
 ````javascript
 var Message = new RestWrapper('http://example.com/messages/{messageID}', {messageID:'@id'});
-Message.get({messageID:123}).then(function(message){
+Message.get({id:123}).then(function(message){
  alert(message.text);
 });
+
+or
+
+Message.get({messageID: 123}).then(function(message){
+ alert(message.text);
+});
+
 ````
 ````javascript
 var newMessage = {text:"Hey, I think you're cool."};
