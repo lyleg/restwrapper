@@ -21,14 +21,14 @@
   },
   "homepage": "https://github.com/lyleg/restwrapper",
   "dependencies": {
-    "superagent": "^1.2.0",
-    "uri-templates": "^0.1.7"
+    "superagent": "1.2.0",
+    "uri-templates": "0.1.7"
   },
   "devDependencies": {
-    "babelify": "^6.0.2",
-    "coverify": "^1.1.0",
-    "es6-promise": "^2.0.1",
-    "sinon": "^1.14.1",
-    "tape": "^4.0.0"
+    "babelify": "6.0.2",
+    "coverify": "1.1.0",
+    "es6-promise": "2.0.1",
+    "sinon": "1.14.1",
+    "tape": "4.0.0"
   }
 }
