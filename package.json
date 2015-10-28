@@ -25,10 +25,10 @@
     "uri-templates": "0.1.7"
   },
   "devDependencies": {
-    "babelify": "6.0.2",
+    "babelify": "6.4.0",
     "coverify": "1.1.0",
     "es6-promise": "2.0.1",
-    "sinon": "1.17.1",
-    "tape": "4.2.2"
+    "sinon": "1.17.2",
+    "tape": "4.2.1"
   }
 }
