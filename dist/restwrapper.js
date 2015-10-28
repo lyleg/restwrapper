@@ -1,11 +1,11 @@
 'use strict';
 
-var request = require('superagent'),
+var _request = require('superagent'),
     uriTemplates = require('uri-templates');
 
-module.exports = function (uri, _x4, beforeSend) {
+module.exports = function (uri, paramDefaults, beforeSend) {
     'use strict';
-    var paramDefaults = arguments[1] === undefined ? {} : arguments[1];
+    if (paramDefaults === undefined) paramDefaults = {};
     var uriTemplate = uriTemplates(uri);
     return {
         beforeSend: beforeSend || function () {
@@ -21,8 +21,8 @@ module.exports = function (uri, _x4, beforeSend) {
                   use the attr of payload or hardcoded number
         */
         paramDefaulter: function paramDefaulter() {
-            var params = arguments[0] === undefined ? {} : arguments[0];
-            var payload = arguments[1] === undefined ? {} : arguments[1];
+            var params = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+            var payload = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
             uriTemplate.varNames.forEach(function (varName) {
                 if (!params[varName] && paramDefaults[varName]) {
@@ -46,28 +46,18 @@ module.exports = function (uri, _x4, beforeSend) {
             return params;
         },
         buildURI: function buildURI() {
-            var params = arguments[0] === undefined ? {} : arguments[0];
-            var payload = arguments[1] === undefined ? {} : arguments[1];
+            var params = arguments.length <= 0 || arguments[0] === undefined ? {} : arguments[0];
+            var payload = arguments.length <= 1 || arguments[1] === undefined ? {} : arguments[1];
 
             params = this.paramDefaulter(params, payload);
             return uriTemplate.fillFromObject(params);
         },
-        request: (function (_request) {
-            function request(_x, _x2, _x3) {
-                return _request.apply(this, arguments);
-            }
-
-            request.toString = function () {
-                return _request.toString();
-            };
-
-            return request;
-        })(function (method, requestUri, payload) {
+        request: function request(method, requestUri, payload) {
             var _this = this;
 
             return new Promise(function (resolve, reject) {
                 if (_this.beforeSend(method, requestUri, payload) !== false) {
-                    request[method](requestUri).send(payload).set(_this.headers).end(function (err, res) {
+                    _request[method](requestUri).send(payload).set(_this.headers).end(function (err, res) {
                         if (res.error) {
                             reject(res.error);
                         }
@@ -75,7 +65,7 @@ module.exports = function (uri, _x4, beforeSend) {
                     });
                 }
             });
-        }),
+        },
         argumentBuilder: function argumentBuilder(a1, a2) {
             var args = {};
             if (arguments.length === 2) {
@@ -91,34 +81,34 @@ module.exports = function (uri, _x4, beforeSend) {
             return this.request('get', this.buildURI(params));
         },
         post: function post() {
-            var _argumentBuilder$apply = this.argumentBuilder.apply(this, arguments);
+            var _argumentBuilder = this.argumentBuilder.apply(this, arguments);
 
-            var payload = _argumentBuilder$apply.payload;
-            var params = _argumentBuilder$apply.params;
+            var payload = _argumentBuilder.payload;
+            var params = _argumentBuilder.params;
 
             return this.request('post', this.buildURI(params, payload), payload);
         },
         update: function update() {
-            var _argumentBuilder$apply2 = this.argumentBuilder.apply(this, arguments);
+            var _argumentBuilder2 = this.argumentBuilder.apply(this, arguments);
 
-            var payload = _argumentBuilder$apply2.payload;
-            var params = _argumentBuilder$apply2.params;
+            var payload = _argumentBuilder2.payload;
+            var params = _argumentBuilder2.params;
 
             return this.request('put', this.buildURI(params, payload), payload);
         },
         del: function del() {
-            var _argumentBuilder$apply3 = this.argumentBuilder.apply(this, arguments);
+            var _argumentBuilder3 = this.argumentBuilder.apply(this, arguments);
 
-            var payload = _argumentBuilder$apply3.payload;
-            var params = _argumentBuilder$apply3.params;
+            var payload = _argumentBuilder3.payload;
+            var params = _argumentBuilder3.params;
 
             return this.request('del', this.buildURI(params, payload), payload);
         },
         patch: function patch() {
-            var _argumentBuilder$apply4 = this.argumentBuilder.apply(this, arguments);
+            var _argumentBuilder4 = this.argumentBuilder.apply(this, arguments);
 
-            var payload = _argumentBuilder$apply4.payload;
-            var params = _argumentBuilder$apply4.params;
+            var payload = _argumentBuilder4.payload;
+            var params = _argumentBuilder4.params;
 
             return this.request('patch', this.buildURI(params, payload), payload);
         }

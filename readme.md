@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/lyleg/restwrapper.svg?branch=master)](https://travis-ci.org/lyleg/restwrapper)
 #Simple REST Calls for NODE/Browserify
 
-Version: 0.0.14 
+Version: 0.0.15 
 I wrote this to be a simple way to communicate to REST Servers using the same syntax in my Node / Browserify applications.
 
 It's a nice starting point for the mysterious WEB API often mentioned in FLUX tutorials.
