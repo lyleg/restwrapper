@@ -1,5 +1,5 @@
 #RestWrapper
-
+[![Build Status](https://travis-ci.org/lyleg/restwrapper.svg?branch=master)](https://travis-ci.org/lyleg/restwrapper)
 #Simple REST Calls for NODE/Browserify
 
 Version: 0.0.14 
