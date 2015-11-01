@@ -25,7 +25,7 @@
     "uri-templates": "0.1.7"
   },
   "devDependencies": {
-    "babel": "5.8.29",
+    "babel": "6.0.2",
     "babelify": "6.4.0",
     "coverify": "1.1.0",
     "es6-promise": "3.0.2",
