@@ -29,7 +29,7 @@
     "babelify": "7.2.0",
     "coverify": "1.1.0",
     "es6-promise": "3.0.2",
-    "sinon": "1.17.2",
+    "sinon": "1.17.3",
     "tape": "4.2.2"
   }
 }
