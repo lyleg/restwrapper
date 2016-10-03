@@ -27,7 +27,7 @@
   "devDependencies": {
     "babel": "5.8.29",
     "babelify": "7.2.0",
-    "coverify": "1.1.0",
+    "coverify": "1.4.1",
     "es6-promise": "3.0.2",
     "sinon": "1.17.2",
     "tape": "4.2.2"
