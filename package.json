@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/lyleg/restwrapper",
   "dependencies": {
-    "superagent": "1.4.0",
+    "superagent": "3.2.0",
     "uri-templates": "0.1.7"
   },
   "devDependencies": {
